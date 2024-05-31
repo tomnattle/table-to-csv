@@ -14,8 +14,8 @@ export class TableToCSV {
     this.init();
   }
   
-  sanitizeText = function(text) {
-      return text.replace(/[\n\t]/g, ' ');
+  sanitizeText = function(text: string) {
+      return text.replace(/[\n\t]/g, '');
   }
 
   getTableElement(tableId: string): HTMLTableElement {
