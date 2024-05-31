@@ -13,6 +13,10 @@ export class TableToCSV {
     this.table = this.getTableElement(tableId);
     this.init();
   }
+  
+  sanitizeText = function(text) {
+      return text.replace(/[\n\t]/g, ' ');
+  }
 
   getTableElement(tableId: string): HTMLTableElement {
     return document.querySelector(tableId);
@@ -29,7 +33,7 @@ export class TableToCSV {
     const titles: Array<string> = [];
     for (let i = 0; i < cells.length; i++) {
       if (this.options.ignoreColumns.includes(i)) continue;
-      titles.push(cells.item(i).textContent);
+      titles.push(this.sanitizeText(cells.item(i).textContent));
     }
     return titles;
   }
@@ -42,7 +46,7 @@ export class TableToCSV {
       const csvRow: Array<string> = [];
       for (let j = 0; j < tr.length; j++) {
         if (this.options.ignoreColumns.includes(j)) continue;
-        csvRow.push(tr.item(j).textContent);
+        csvRow.push(this.sanitizeText(tr.item(j).textContent));
       }
       csvRecord.push(csvRow.join(this.options.delimiter));
     }
